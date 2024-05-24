@@ -26,9 +26,15 @@ def urls_or_list():
                      #print ga.red+'''\n Invalid URL, Please Make Sure That The URL Starts With \"http://\" \n'''+ga.end
                      #exit()
 		 if "?" in url:
-		 	rce_func(url)
-		 	xss_func(url)
-		 	error_based_sqli_func(url)
+               rce_func(url)
+               xss_func(url)
+               error_based_sqli_func(url)
+               lfi_func(url)
+               directory_traversal_func(url)
+               command_injection_func(url)
+               csrf_func(url)
+               xssi_func(url)
+               ssti_func(url)
 		 else:
 			print ga.red +"\n [Warning] "+ ga.end + ga.bold+"%s"%url +ga.end + ga.red +" is not a valid URL"+ga.end			
 			print ga.red +" [Warning] You should write a Full URL .e.g http://site.com/page.php?id=value \n"+ ga.end
@@ -42,8 +48,14 @@ def urls_or_list():
 		  	 	url = links
 		  	 	print ga.green+" \n [!] Now Scanning %s"%url +ga.end
 		  	 	rce_func(url)
-			 	xss_func(url)
-			 	error_based_sqli_func(url)
+                   xss_func(url)
+                   error_based_sqli_func(url)
+                   lfi_func(url)
+                   directory_traversal_func(url)
+                   command_injection_func(url)
+                   csrf_func(url)
+                   xssi_func(url)
+                   ssti_func(url)
 			 else:
 			 	links = line.strip()
 		  	 	url = links
